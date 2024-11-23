@@ -1,0 +1,21 @@
+{
+  "name": "keystone-app",
+  "version": "1.0.3",
+  "private": true,
+  "scripts": {
+    "dev": "keystone dev",
+    "start": "keystone start --with-migrations",
+    "build": "keystone build",
+    "telemetry_disable": "keystone telemetry disable",
+    "DNW_postinstall": "keystone postinstall",
+    "generate": "keystone prisma migrate dev",
+    "deploy": "keystone build && keystone prisma migrate deploy"
+  },
+  "dependencies": {
+    "@keystone-6/auth": "^8.0.0",
+    "@keystone-6/core": "^6.0.0",
+    "@keystone-6/fields-document": "^9.0.0",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.5.0"
+  }
+}
