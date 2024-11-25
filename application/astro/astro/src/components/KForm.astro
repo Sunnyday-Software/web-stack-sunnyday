@@ -1,0 +1,46 @@
+---
+import type {ComponentInstance} from "astro";
+interface Props {
+    identifier: string;
+    action: string;
+    titleLabel?: string;
+    subtitleLabel?: string;
+    submitLabel?: string;
+}
+
+const props = Astro.props;
+---
+
+<form id={props.identifier} action={props.action} method="POST">
+    <div class="header">
+        {props.titleLabel && <h3 class="title">
+            {props.titleLabel}
+        </h3>}
+        {props.subtitleLabel && <p class="subtitle">{props.subtitleLabel}</p>}
+    </div>
+    <div class="fields">
+        <slot name="fields"/>
+    </div>
+    <div class="actions">
+        <slot name="actions">
+            <button type="submit">
+                {props.submitLabel ?? "Submit"}
+            </button>
+        </slot>
+    </div>
+</form>
+
+<style>
+    form {
+        @apply flex flex-col justify-between items-stretch gap-2.5;
+    }
+
+    .fields {
+        @apply flex flex-col justify-start items-stretch gap-2.5;
+        
+    }
+
+    .actions {
+        @apply self-end drop-shadow;
+    }
+</style>

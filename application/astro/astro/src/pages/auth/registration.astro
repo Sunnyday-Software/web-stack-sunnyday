@@ -1,0 +1,12 @@
+---
+import KForm from "@/components/KForm.astro"
+---
+
+
+<KForm identifier="registration" action="/api/auth/register" titleLabel="Registrati" subtitleLabel="Inserisci i tuoi dati per iniziare ad usare i nostri servizi e rimanere in contatto pi&ugrave; efficaciemente con i tuoi clienti senza nessuna pubblicit&agrave;.">
+    <Fragment slot="fields">
+        <label for="registration-username"></label>
+        <input id="registration-username" aria-labelledby="registration-username-lbl" type="text" class="rounded px-2.5 py-1.5" />
+        <input type="checkbox" class="rounded" />
+    </Fragment>
+</KForm>

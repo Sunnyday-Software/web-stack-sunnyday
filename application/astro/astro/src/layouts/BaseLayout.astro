@@ -1,0 +1,82 @@
+---
+import '@fontsource-variable/kode-mono';
+import '@fontsource-variable/eb-garamond';
+import '@fontsource/abril-fatface';
+import '@fontsource/sacramento';
+
+interface Props {
+    title?: string,
+    contentLocale?: string,
+}
+const props = Astro.props;
+const pageTitle = props.title ?? "KITme.App";
+const pageLocale = props.contentLocale ?? "en";
+---
+
+<html lang={pageLocale}>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/svg+xml" href="/app-logo.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content={Astro.generator}/>
+    <title>{pageTitle}</title>
+</head>
+<body>
+<slot/>
+</body>
+</html>
+
+<style is:global>
+    :root {
+        //--base-font-size: 14px;
+
+        --font-display: "Abril Fatface";
+        --font-headings: "Abril Fatface";
+        --font-body: "EB Garamond Variable";
+        --font-emphasis: "Sacramento";
+        --font-mono: "Kode Mono Variable";
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        height: 100%;
+        width: 100%;
+        font-family: var(--font-body), sans-serif;
+        //font-size: var(--base-font-size);
+        cursor: unset;
+    }
+    
+    input {
+        @apply relative form-input rounded flex flex-col;
+        @apply px-2.5 py-1.5 border-amber-500;
+        @apply bg-neutral-50;
+        @apply shadow-inner drop-shadow-sm;
+        @apply transition-all duration-700 ease-in-out;
+        
+        &:invalid{
+            @apply border-red-600 ring-red-700;
+            
+            &:before {
+                content: "An error occurred";
+                display: inline-block;
+                position: absolute;
+                top: 20px;
+            }
+        }
+        
+        &:hover {
+            @apply border-amber-700;
+        }
+        
+        &:focus{
+            @apply border-lime-500 ring-lime-700;
+        }
+    }
+    
+    
+</style>

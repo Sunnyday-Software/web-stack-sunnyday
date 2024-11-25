@@ -1,16 +1,103 @@
 ---
-
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import KForm from "@/components/KForm.astro";
 ---
+<BaseLayout>
+    <main class="webpage-layout">
+        <div id="coming-soon">
+            <div class="card">
+                <nav class="toolbar">
+                    <div class="logo">
+                        <img src="/app-logo.svg" alt="logo"/>
+                    </div>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+                    <h1 class="title">KITme app</h1>
+                    <h2 class="subtitle">Coming soon...</h2>
+                </nav>
+                <div class="content">
+                    <p>Il nuovo servizio social per tenere in contatto fornitori di servizi e utilizzatori, senza nessuna
+                        pubblicit&agrave;</p>
+                    <KForm action="/api/newsletter/subscribe" identifier="comingsoon-newsletter-subscribe" >
+                        <Fragment slot="fields">
+                            <label for="newsletter-email">
+                                <span>
+                                Indirizzo e-mail
+                                </span>
+                                <input id="newsletter-email" name="newsletter-email" type="email"/>
+                                <span class="error" aria-live="polite"></span>
+                            </label>
+                        </Fragment>
+                        <Fragment slot="actions">
+                            <button class="btn primary">
+                                Iscriviti alla newsletter
+                            </button>
+                        </Fragment>
+                    </KForm>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</BaseLayout>
+
+<style>
+    main.webpage-layout {
+        @apply flex flex-col min-h-svh justify-start items-stretch;
+
+
+    }
+
+    #coming-soon {
+        @apply flex-1 grid grid-cols-1  grid-rows-1 place-items-center;
+
+        .card {
+            @apply bg-amber-50 rounded p-8 drop-shadow-lg max-w-sm  px-4 py-6 relative;
+
+            nav {
+                font-family: var(--font-headings), sans-serif;
+
+                .logo {
+                    @apply absolute -right-9 -top-9 size-20 drop-shadow-md;
+                }
+
+                .title {
+                    @apply text-xl md:text-2xl lg:text-4xl;
+                }
+
+                .subtitle {
+                    @apply text-base md:text-xl lg:text-2xl;
+                }
+            }
+
+            .content {
+                @apply flex flex-col justify-start items-stretch gap-2.5;
+
+                label {
+                    @apply w-full flex flex-col justify-start items-stretch;
+                    span:not(.error){
+                        @apply ml-2 z-1000 bg-neutral-50 ring-amber-500 self-start px-0.5 border-amber-600 border rounded-sm text-xs border-dashed;
+                    }
+                    input {
+                        @apply -mt-1.5 z-10;
+                    }
+                }
+
+            }
+        }
+
+        .btn {
+            @apply px-2.5 py-1.5 rounded;
+            @apply transition-all duration-700 ease-in-out;
+
+            &.primary {
+                @apply bg-stone-700 text-white;
+
+                &:hover {
+                    @apply bg-stone-800;
+                }
+            }
+        }
+
+
+    }
+</style>
