@@ -20,7 +20,7 @@ dotenv.config();
 
 const {
     DB_URL: databaseUrl = "postgres://keystone:password123@postgres:5432/keystone",
-    DB_SEED: isDatabaseToSeed,
+    DB_SEED: isDatabaseToSeed = 'false',
     
     S3_ACCESS_KEY_ID: s3AccessKeyId = 'root',
     S3_SECRET_ACCESS_KEY: s3SecretAccessKey = 'password123',
