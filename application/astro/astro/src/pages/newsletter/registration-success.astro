@@ -1,0 +1,10 @@
+---
+const {url} = Astro.request;
+
+const welcomeMessageLabel = new URL(url).searchParams.get("message");
+
+
+console.log(welcomeMessageLabel);
+---
+<h1>Newsletter subscription success</h1>
+<p>{welcomeMessageLabel}</p>

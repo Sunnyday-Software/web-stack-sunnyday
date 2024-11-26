@@ -1,17 +1,17 @@
 ---
-import type {ComponentInstance} from "astro";
 interface Props {
     identifier: string;
     action: string;
     titleLabel?: string;
     subtitleLabel?: string;
     submitLabel?: string;
+    novalidate?: boolean;
 }
 
 const props = Astro.props;
 ---
 
-<form id={props.identifier} action={props.action} method="POST">
+<form id={props.identifier} action={props.action} method="POST" novalidate={props.novalidate ?? false}>
     <div class="header">
         {props.titleLabel && <h3 class="title">
             {props.titleLabel}
@@ -33,14 +33,19 @@ const props = Astro.props;
 <style>
     form {
         @apply flex flex-col justify-between items-stretch gap-2.5;
-    }
 
-    .fields {
-        @apply flex flex-col justify-start items-stretch gap-2.5;
+        .header {
+            @apply flex flex-col justify-start gap-2;
+        }
         
-    }
+        .fields {
+            @apply flex flex-col justify-start items-stretch gap-2.5;
+    
+            
+        }
 
-    .actions {
-        @apply self-end drop-shadow;
+        .actions {
+            @apply self-end drop-shadow;
+        }
     }
 </style>

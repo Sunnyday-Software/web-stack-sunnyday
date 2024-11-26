@@ -51,32 +51,6 @@ const pageLocale = props.contentLocale ?? "en";
         cursor: unset;
     }
     
-    input {
-        @apply relative form-input rounded flex flex-col;
-        @apply px-2.5 py-1.5 border-amber-500;
-        @apply bg-neutral-50;
-        @apply shadow-inner drop-shadow-sm;
-        @apply transition-all duration-700 ease-in-out;
-        
-        &:invalid{
-            @apply border-red-600 ring-red-700;
-            
-            &:before {
-                content: "An error occurred";
-                display: inline-block;
-                position: absolute;
-                top: 20px;
-            }
-        }
-        
-        &:hover {
-            @apply border-amber-700;
-        }
-        
-        &:focus{
-            @apply border-lime-500 ring-lime-700;
-        }
-    }
     
     
 </style>

@@ -1,6 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import KForm from "@/components/KForm.astro";
+import {actions, isInputError} from "astro:actions";
+const result = Astro.getActionResult(actions.newsletter.subscribeToNewsletter);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+if (result && !result.error) {
+    return Astro.redirect(`/newsletter/registration-success?message=${result.data.message}`);
+}
 ---
 <BaseLayout>
     <main class="webpage-layout">
@@ -17,14 +24,17 @@ import KForm from "@/components/KForm.astro";
                 <div class="content">
                     <p>Il nuovo servizio social per tenere in contatto fornitori di servizi e utilizzatori, senza nessuna
                         pubblicit&agrave;</p>
-                    <KForm action="/api/newsletter/subscribe" identifier="comingsoon-newsletter-subscribe" >
+                    <KForm action={actions.newsletter.subscribeToNewsletter}
+                           identifier="comingsoon-newsletter-subscribe">
                         <Fragment slot="fields">
                             <label for="newsletter-email">
-                                <span>
+                                <span class="label">
                                 Indirizzo e-mail
                                 </span>
-                                <input id="newsletter-email" name="newsletter-email" type="email"/>
-                                <span class="error" aria-live="polite"></span>
+                                <input id="newsletter-email" name="email" type="email"/>
+                                {inputErrors.email && (<p class="error" aria-live="polite">
+                                    <span>{inputErrors.email.join(',')}</span>
+                                </p>)}
                             </label>
                         </Fragment>
                         <Fragment slot="actions">
@@ -39,6 +49,7 @@ import KForm from "@/components/KForm.astro";
         </div>
     </main>
 </BaseLayout>
+
 
 <style>
     main.webpage-layout {
@@ -74,11 +85,41 @@ import KForm from "@/components/KForm.astro";
 
                 label {
                     @apply w-full flex flex-col justify-start items-stretch;
-                    span:not(.error){
+
+                    .label {
                         @apply ml-2 z-1000 bg-neutral-50 ring-amber-500 self-start px-0.5 border-amber-600 border rounded-sm text-xs border-dashed;
                     }
+
                     input {
+                        @apply relative form-input rounded flex flex-col;
+                        @apply px-2.5 py-1.5 border-amber-500;
+                        @apply bg-neutral-50;
+                        @apply shadow-inner drop-shadow-sm;
+                        @apply transition-all duration-700 ease-in-out;
                         @apply -mt-1.5 z-10;
+
+                        &:invalid {
+                            @apply border-red-600 ring-red-700;
+
+                            &:before {
+                                content: "An error occurred";
+                                display: inline-block;
+                                position: absolute;
+                                top: 20px;
+                            }
+                        }
+
+                        &:hover {
+                            @apply border-amber-700;
+                        }
+
+                        &:focus {
+                            @apply border-lime-500 ring-lime-700;
+                        }
+                    }
+
+                    .error {
+                        @apply text-red-600 text-xs w-full self-stretch;
                     }
                 }
 
