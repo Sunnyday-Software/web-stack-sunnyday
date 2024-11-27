@@ -6,8 +6,7 @@ export const newsletter = {
         accept: 'form',
         input: z.object({
             email: z.string().email(),
-        })
-        ,
+        }),
         handler: async (input) => {
             
             if (!input.email) {
