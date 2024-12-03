@@ -1,0 +1,16 @@
+---
+interface Props {
+    fullHeight?: boolean;
+}
+const {fullHeight} = Astro.props;
+---
+<section class="page-section" class:list={[{'min-h-svh': fullHeight}]}>
+    <slot/>
+</section>
+
+<style>
+    .page-section {
+        @apply flex flex-col;
+        @apply bg-amber-50 ;
+    }
+</style>

@@ -1,4 +1,23 @@
 ---
-
+interface Props {
+    Hero: any
+    Cta: any
+}
+const {Hero, Cta} =Astro.props;
 ---
+<main class="auth-layout">
+    <section class="hero-layout">
+        <Hero />
+    </section>
+    <section class="cta-layout">
+        <Cta />
+    </section>
+</main>
 
+<style>
+    .auth-layout {
+        .cta-layout {
+            @apply absolute top-10 right-10;
+        }
+    }
+</style>

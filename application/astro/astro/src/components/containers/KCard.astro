@@ -1,0 +1,40 @@
+---
+interface Props {
+    slotPadding?: string;
+}
+const {slotPadding} = Astro.props;
+const innerPadding= slotPadding ?? "16px 24px";
+---
+<div class="card">
+    <div class="header">
+        <slot name="header" />
+    </div>
+    <div class="body">
+        <slot />
+    </div>
+    <div class="footer">
+        <slot name="footer" />
+    </div>
+</div>
+
+<style define:vars={{"inner-padding": innerPadding}}>
+    .card {
+        @apply flex flex-col justify-start items-stretch gap-4;
+        @apply bg-amber-50 shadow;
+        @apply rounded;
+
+        .header {
+            @apply flex flex-col justify-start items-start gap-2;
+            padding: var(--inner-padding);
+            
+        }
+        .body  {
+            @apply flex flex-col justify-start items-start gap-2;
+            padding: var(--inner-padding);
+        }
+        .footer {
+            @apply flex flex-col justify-start items-start gap-2;
+            padding: var(--inner-padding);
+        }
+    }
+</style>

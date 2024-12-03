@@ -1,0 +1,14 @@
+---
+import {type HTMLAttributes, type HTMLTag} from "astro/types";
+interface Props extends HTMLAttributes<"div" | "ul"> {
+    as: HTMLTag;
+    children?: any;
+}
+
+const {as = 'div', class: elementClasses} = Astro.props;
+const Element = as;
+---
+
+<Element class="flex flex-row" class:list={elementClasses}>
+    <slot/>
+</Element>

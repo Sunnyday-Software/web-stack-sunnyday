@@ -1,0 +1,30 @@
+---
+interface Props {
+    id: string;
+    helperLabel?: string;
+    
+}
+const props = Astro.props;
+---
+
+<div id={props.id + '-group'} class="field-group">
+    <input id={props.id + '-field'} type="checkbox" />
+    <label for={props.id + '-field'}>
+        <slot>
+            {props.helperLabel}
+        </slot>
+    </label>
+</div>
+
+<style>
+    .field-group {
+        @apply flex flex-row;
+        input {
+            @apply form-checkbox;
+        }
+        label {
+            @apply flex flex-1;
+        }
+        
+    }
+</style>

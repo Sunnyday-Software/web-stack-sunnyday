@@ -5,9 +5,11 @@ export const newsletter = {
     subscribeToNewsletter: defineAction({
         accept: 'form',
         input: z.object({
-            email: z.string().email(),
+            email: z.string().min(8, {message: "l'email deve essere almeno 8 caratteri"}).email({message: "Email is required"}),
         }),
         handler: async (input) => {
+            console.log(`User with ${input.email} wants to subscribe to newsletter`);
+            console.table(input);
             
             if (!input.email) {
                 throw new ActionError({

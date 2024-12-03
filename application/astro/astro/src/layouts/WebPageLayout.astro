@@ -1,0 +1,32 @@
+---
+import SearchEngineOptimization from "@/components/seo/SearchEngineOptimization.astro";
+import type {ComponentProps} from "astro/types";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+type BaseLayoutProps = ComponentProps<typeof BaseLayout>;
+type SEOProps = ComponentProps<typeof SearchEngineOptimization>;
+interface Props extends BaseLayoutProps {
+    seo?: SEOProps;
+}
+const props = Astro.props;
+
+const defaultSEOValues = {
+    metaTitle: "KITme.App",
+    metaDescription: "Un social per tenerti in contatto con i tuoi servizi preferiti, senza pubblicità aggiuntive.",
+    metaKeywords: ['social', 'servizi', 'sconti', 'punti fedeltà']
+}
+
+const pageTitle = props.seo?.metaTitle ?? defaultSEOValues.metaTitle;
+const pageDescription = props.seo?.metaDescription ?? defaultSEOValues.metaDescription;
+const pageKeywords = props.seo?.metaKeywords ?? defaultSEOValues.metaKeywords;
+---
+<BaseLayout>
+    <Fragment slot="seo">
+        <SearchEngineOptimization
+                metaTitle={pageTitle}
+                metaDescription={pageDescription}
+                metaKeywords={pageKeywords}
+        />
+    </Fragment>
+    <slot/>
+</BaseLayout>

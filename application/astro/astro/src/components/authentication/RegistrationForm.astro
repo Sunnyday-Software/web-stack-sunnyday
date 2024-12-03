@@ -1,0 +1,54 @@
+---
+import KForm from "@/components/forms/KForm.astro";
+import KTextField from "@/components/forms/KTextField.astro";
+import KCard from "../containers/KCard.astro";
+import KCheckbox from "@/components/forms/KCheckbox.astro";
+import {actions, isInputError} from "astro:actions";
+
+const result = Astro.getActionResult(actions.authentication.registration);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+console.log('[registrationForm]', {inputErrors})
+---
+
+<KForm identifier="registration" action={actions.authentication.registration} titleLabel="Registrati"
+       subtitleLabel="Inserisci i tuoi dati per iniziare ad usare i nostri servizi e rimanere in contatto pi&ugrave; efficaciemente con i tuoi clienti senza nessuna pubblicit&agrave;."
+>
+    <KCard slotPadding="2px 8px 8px 8px">
+        <Fragment slot="header">
+            <h3>Registrati a KITme app</h3>
+            <p class="page-intro">
+                Utilizza la form sottostante per iscriverti alla nostra app e iniziare a pubblicizzare i tuoi servizi.
+            </p>
+        </Fragment>
+        <KTextField id="username" fieldLabel="Username" inputAttributes={{name: 'username', type: 'text'}} errorText={inputErrors && inputErrors["username"]} />
+        <KTextField id="email" fieldLabel="E-mail" inputAttributes={{name: 'email', type: 'email'}} errorText={inputErrors && inputErrors["email"]} />
+        <KTextField id="password" fieldLabel="Password" inputAttributes={{name: 'password', type: 'password'}} errorText={inputErrors && inputErrors["password"]} />
+        <KTextField id="password-confirm" fieldLabel="Conferma password" inputAttributes={{name: 'passwordConfirm', type: 'password'}} errorText={inputErrors && inputErrors["passwordConfirm"]} />
+        <KCheckbox id="acceptTermsAndConditions">
+            <p>
+                Accetta i <a href="/privacy-policy">termini d'uso e le condizioni di privacy</a>.
+            </p>
+        </KCheckbox>
+        <Fragment slot="footer">
+            <button type="submit" class="btn primary">
+                Registrati
+            </button>
+        </Fragment>
+    </KCard>
+</KForm>
+
+<style>
+    #registration {
+        @apply max-w-screen-xs;
+        h3 {
+            @apply font-sunnyday-headings font-semibold text-2xl;
+        }
+        
+        button {
+            @apply self-end;
+        }
+        
+        
+    }
+</style>

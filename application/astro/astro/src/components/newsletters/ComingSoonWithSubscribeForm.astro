@@ -1,0 +1,54 @@
+---
+import SubscribeForm from "./SubscribeForm.astro";
+---
+
+<div id="coming-soon">
+
+    <section class="hero-section">
+        <div class="logo-wrapper">
+            <img src="/app-logo.svg" alt="logo" class="logo"/>
+        </div>
+        <div class="content">
+            <h1 class="page-title brand-logo">KITme app</h1>
+            <h2 class="page-subtitle">Coming soon...</h2>
+            <p class="page-intro">Il nuovo servizio social per tenere in contatto fornitori di servizi e utilizzatori, senza nessuna
+                pubblicit&agrave;</p>
+        </div>
+    </section>
+    <section class="cta-section">
+
+        <SubscribeForm/>
+
+    </section>
+</div>
+
+<style>
+
+    #coming-soon {
+        @apply flex-1 flex flex-col min-h-svh justify-start items-stretch  bg-amber-50;
+
+        .hero-section {
+            @apply relative p-10 flex-1;
+            @apply w-2/5;
+            
+
+            .logo-wrapper {
+                @apply absolute -right-9 top-4;
+                .logo {
+                    @apply size-20 drop-shadow-md;
+                }
+            }
+            
+            .content {
+                .brand-logo {
+                
+                }
+            }
+            
+        }
+
+        .cta-section {
+            @apply absolute inset-32 grid grid-cols-1 grid-rows-1 justify-items-end items-end;
+        }
+    }
+</style>

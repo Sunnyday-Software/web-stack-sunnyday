@@ -1,0 +1,33 @@
+---
+import KForm from "@/components/forms/KForm.astro";
+import KTextField from "@/components/forms/KTextField.astro";
+import KCard from "../containers/KCard.astro";
+import KCheckbox from "@/components/forms/KCheckbox.astro";
+import {actions, isInputError} from "astro:actions";
+
+const result = Astro.getActionResult(actions.authentication.registration);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+console.log({inputErrors})
+---
+
+<KForm identifier="login" action={actions.authentication.loginWithCredentials} titleLabel="Accedi"
+       class="single-form-column"
+       subtitleLabel="Inserisci email e password usati in fase di registrazione."
+>
+    <KCard slotPadding="2px 8px 8px 8px">
+        <Fragment slot="header">
+            <h3 class="form-title">Registrati a KITme app</h3>
+            <p class="form-intro">
+                Utilizza la form sottostante per iscriverti alla nostra app e iniziare a pubblicizzare i tuoi servizi.
+            </p>
+        </Fragment>
+        <KTextField id="email" fieldLabel="E-mail" inputAttributes={{name: 'email', type: 'email'}} errorText={inputErrors && inputErrors["email"]} />
+        <KTextField id="password" fieldLabel="Password" inputAttributes={{name: 'password', type: 'password'}} errorText={inputErrors && inputErrors["password"]} />
+        <Fragment slot="footer">
+            <button type="submit" class="btn primary">
+                Accedi
+            </button>
+        </Fragment>
+    </KCard>
+</KForm>

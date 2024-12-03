@@ -1,0 +1,15 @@
+---
+interface Props {
+    metaTitle?: string,
+    metaDescription?: string,
+    metaKeywords?: string[],
+}
+const props = Astro.props;
+
+// Return a string with the keywords separated by comma `,`
+const keywords = props.metaKeywords && props.metaKeywords.join(", ") || undefined;
+---
+
+{props.metaTitle && <title>{props.metaTitle}</title>}
+{props.metaDescription && <meta name="description" content={props.metaDescription} />}
+{props.metaKeywords && <meta name="keywords" content={keywords} />}

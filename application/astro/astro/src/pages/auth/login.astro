@@ -1,8 +1,9 @@
 ---
-import KForm from "@/components/KForm.astro"
+import KForm from "../../components/forms/KForm.astro";
+import LoginForm from "@/components/authentication/LoginForm.astro";
 ---
 
 
 <KForm identifier="login" action="/api/auth/login">
-
+    <LoginForm />
 </KForm>

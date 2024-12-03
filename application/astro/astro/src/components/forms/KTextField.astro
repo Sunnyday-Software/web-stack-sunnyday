@@ -1,0 +1,70 @@
+---
+import type {HTMLAttributes} from 'astro/types';
+import {ActionError} from "astro:actions";
+interface Props extends HTMLAttributes<"div"> {
+    id: string,
+    fieldLabel: string,
+    inputAttributes: HTMLAttributes<"input">,
+    state?: "enabled" | "disabled" | "valid" | "invalid",
+    supportingLabel?: string,
+    placeholderLabel?: string,
+    errorText?: string[],
+    showResetIcon?: boolean,
+    resetIconName?: string
+}
+const props = Astro.props;
+---
+
+<div id={props.id + '-group'} class="field-group">
+    <label class="label" for={props.id + '-input'}>{props.fieldLabel}</label>
+    <input id={props.id + '-input'} class="input" {...props.inputAttributes} placeholder={props.placeholderLabel ?? undefined}
+           disabled={props.state === 'disabled'}/>
+    {props.supportingLabel && (
+            <p class="supporting-label">{props.supportingLabel}</p>
+    )}
+    {props.state === 'invalid' && props.errorText && props.errorText.map((e) =>
+            <p class="error" aria-live="polite">
+                <span>{e}</span>
+            </p>
+    )}
+</div>
+
+<style>
+    :root {
+        --field-background-color: white;
+    }
+    .field-group {
+        @apply flex flex-col justify-start items-start gap-2 self-stretch;
+        @apply relative z-0;
+        label[class='label']{
+            @apply -mb-3.5 ml-3 px-2 py-0.5;
+            @apply inline-flex w-min rounded;
+            @apply text-nowrap;
+            @apply text-sm font-medium leading-tight;
+            @apply z-1000;
+            @apply border border-amber-500;
+            @apply ring ring-amber-500;
+            background-color: var(--field-background-color);
+        }
+        input {
+            @apply form-input rounded-md px-4 py-2;
+            @apply self-stretch;
+            @apply border border-amber-500;
+            @apply z-100;
+            background-color: var(--field-background-color);
+            
+            &:focus {
+                @apply border-amber-400 ring-amber-400;
+            }
+            &:invalid {
+                @apply border-red-400 border-2 ring-red-400;
+            }
+        }
+        p.supporting-label {
+            @apply text-sm italic;
+        }
+        p.error {
+            @apply text-sm text-red-600;
+        }
+    }
+</style>

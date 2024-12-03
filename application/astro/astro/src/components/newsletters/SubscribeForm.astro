@@ -1,0 +1,51 @@
+---
+import KForm from "@/components/forms/KForm.astro";
+import KTextField from "@/components/forms/KTextField.astro";
+import {actions, isInputError} from "astro:actions";
+import KCard from "../containers/KCard.astro";
+import { navigate } from 'astro:transitions/client';
+
+const result = await Astro.getActionResult(actions.newsletter.subscribeToNewsletter);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+if (inputErrors.email) {
+    console.error('[subscribeForm]', inputErrors)
+}
+/*if (result && !result.error) {
+    return Astro.redirect(`/newsletters/registration-success`);
+}*/
+---
+<KForm action={'/newsletters/registration-success' + actions.newsletter.subscribeToNewsletter}
+       identifier="comingsoon-newsletters-subscribe"
+       class="single-column-form">
+    <KCard>
+        <Fragment slot="header">
+            <h4>Sottoscriviti alla newsletter</h4>
+            <p>
+                Tieniti aggiornato sugli sviluppi della nostra piattaforma inserendo la tua email.<br/>
+                Riceverai un'email mensile con gli aggiornamenti della nostra app e suggerimenti su come utilizzarla al meglio.
+            </p>
+        </Fragment>
+        <Fragment>
+            <KTextField id="newsletter-email" state={(result && result.error) ? 'invalid' : 'enabled'}
+                        fieldLabel="Indirizzo e-mail"
+                        supportingLabel="Inserisci il tuo indirizzo email per sottoscriverti alla newsletter."
+                        placeholderLabel="indirizzo@gmail.com"
+                        errorText={inputErrors && inputErrors["email"]}
+                        inputAttributes={{type: 'email', name: 'email'}}/>
+        </Fragment>
+        <Fragment slot="footer">
+            <button class="btn primary" id="newsletter-submit" type="submit">
+                Iscriviti alla newsletter
+            </button>
+        </Fragment>
+    </KCard>
+</KForm>
+
+<style>
+    #comingsoon-newsletters-subscribe {
+        #newsletter-submit {
+            @apply self-end;
+        }
+    }
+</style>

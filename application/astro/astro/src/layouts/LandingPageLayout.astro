@@ -1,0 +1,36 @@
+---
+import SearchEngineOptimization from "@/components/seo/SearchEngineOptimization.astro";
+import type {ComponentProps} from "astro/types";
+import WebPageLayout from "@/layouts/WebPageLayout.astro";
+
+type WebPageLayoutProps = ComponentProps<typeof WebPageLayout>;
+interface Props extends WebPageLayoutProps {
+    mainNavigation: INavigation;
+}
+const props = Astro.props;
+---
+<BaseLayout>
+    <!-- Header containing Logo, MobileNavigationTrigger and WebsiteNavigation -->
+    <header>
+        <!-- Logo Section -->
+        <div class="logo">
+        </div>
+
+        <!-- MobileNavigationTrigger hidden on desktop -->
+        <button id="mobile-nav-toggle" aria-label="Toggle navigation">
+            <i class="icon-menu"></i>
+        </button>
+
+        <!-- WebsiteNavigation:  -->
+        
+    </header>
+    <main>
+        <slot/>
+    </main>
+    <footer>
+    
+    </footer>
+    <aside id="mobile-nav" class="hidden">
+    
+    </aside>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+interface Props {
+	as: 'a' | 'button';
+    label?: string;
+    action?: (event: MouseEvent) => void | Promise<void>;
+}
+const {as: Element, label} = Astro.props;
+
+
+/** Validate Props
+ * If as is set to `button` an `action` is mandatory.
+ * If `as` is set to `a` the `to` attrs must be set.
+*/
+if (as === 'button' && !action) {
+    throw new Error("Prop 'action' is required when 'as' is set to 'button'");
+}
+if (as === 'a' && !to) {
+    throw new Error("Prop 'to' is required when 'as' is set to 'a'");
+}
+
+
+---
+
+<Element>
+    {label ? <span>{label}</span> : <slot />}
+</Element>

@@ -3,13 +3,18 @@ import '@fontsource-variable/kode-mono';
 import '@fontsource-variable/eb-garamond';
 import '@fontsource/abril-fatface';
 import '@fontsource/sacramento';
+import '@/styles/kitmeapp.scss';
 
-interface Props {
+import type {HTMLAttributes, ComponentProps} from 'astro/types';
+import SearchEngineOptimization from '@/components/seo/SearchEngineOptimization.astro';
+
+
+interface Props extends HTMLAttributes<'html'> {
     title?: string,
     contentLocale?: string,
 }
+
 const props = Astro.props;
-const pageTitle = props.title ?? "KITme.App";
 const pageLocale = props.contentLocale ?? "en";
 ---
 
@@ -19,38 +24,9 @@ const pageLocale = props.contentLocale ?? "en";
     <link rel="icon" type="image/svg+xml" href="/app-logo.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content={Astro.generator}/>
-    <title>{pageTitle}</title>
+    <slot name="seo"/>
 </head>
 <body>
 <slot/>
 </body>
 </html>
-
-<style is:global>
-    :root {
-        //--base-font-size: 14px;
-
-        --font-display: "Abril Fatface";
-        --font-headings: "Abril Fatface";
-        --font-body: "EB Garamond Variable";
-        --font-emphasis: "Sacramento";
-        --font-mono: "Kode Mono Variable";
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    html, body {
-        height: 100%;
-        width: 100%;
-        font-family: var(--font-body), sans-serif;
-        //font-size: var(--base-font-size);
-        cursor: unset;
-    }
-    
-    
-    
-</style>
