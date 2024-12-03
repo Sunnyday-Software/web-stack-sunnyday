@@ -1,0 +1,82 @@
+
+:root {
+  /*--base-font-size: 14px;*/
+
+  --font-display: "Abril Fatface";
+  --font-headings: "Abril Fatface";
+  --font-body: "EB Garamond Variable";
+  --font-emphasis: "Sacramento";
+  --font-mono: "Kode Mono Variable";
+  /*--base-font-size: 18px;*/
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: var(--font-body), sans-serif;
+  /*font-size: var(--base-font-size);*/
+  cursor: unset;
+}
+
+
+label {
+  @apply w-full flex flex-col justify-start items-stretch;
+
+  .label {
+    @apply ml-2 z-1000 bg-neutral-50 ring-amber-500 self-start px-0.5 border-amber-600 border rounded-sm text-xs border-dashed;
+  }
+
+  .error {
+    @apply text-red-600 text-xs w-full self-stretch;
+  }
+}
+
+.page-title {
+  @apply text-xl md:text-2xl lg:text-3xl;
+  @apply leading-loose;
+  @apply tracking-wider;
+  @apply font-bold;
+  font-family: var(--font-headings), sans-serif;
+}
+.page-subtitle {
+  @apply font-semibold;
+}
+.page-intro {
+  @apply italic;
+}
+
+.btn {
+  @apply px-2.5 py-1.5 rounded;
+  @apply transition-all duration-700 ease-in-out;
+
+  &.primary {
+    @apply bg-stone-700 text-white;
+
+    &:hover {
+      @apply bg-stone-800;
+    }
+  }
+}
+
+.single-column-form {
+  @apply max-w-screen-xs;
+
+
+  .form-title {
+    @apply font-kitme-headings font-semibold text-2xl;
+  }
+  .form-intro {
+
+  }
+  button {
+    @apply self-end;
+  }
+
+}
