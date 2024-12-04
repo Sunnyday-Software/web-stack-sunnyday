@@ -1,0 +1,24 @@
+---
+import KButton from '@/components/buttons/KButton.astro'
+interface IAlertVariant {
+    name: string,
+    classes: string,
+}
+interface Props {
+    variant: IAlertVariant
+    message: string,
+    dismissible: boolean,
+    dismissAction: (event: MouseEvent) => void | Promise<void>,
+}
+const {variant, message, dismissible, dismissAction} = Astro.props;
+---
+
+<div class={variant.classes} role="alert">
+    <div class="alert-content">
+        {message}
+        {dismissible && (
+            <KButton variant={{name: 'primary', classes: 'bg-sky-600'}} ></KButton>
+        )}
+    </div>
+    
+</div>

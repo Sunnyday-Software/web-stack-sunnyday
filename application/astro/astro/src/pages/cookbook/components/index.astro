@@ -1,0 +1,28 @@
+---
+import CookbookLayout from "@/layouts/CookbookLayout.astro";
+import KSection from "@/components/containers/KSection.astro";
+import KTitle from "@/components/typography/KTitle.astro";
+import KButton from "@/components/buttons/KButton.astro";
+import {getCollection} from "astro:content";
+import {type GetStaticPaths} from "astro";
+const components = await getCollection('components');
+console.log(components);
+
+---
+
+<CookbookLayout seo={{metaTitle: 'KITme App | Desing components'}}
+                   mainNavigation={{identifier: 'website-navigation', items: []}}>
+
+    <KSection>
+        <KTitle text="Components library"/>
+    </KSection>
+    {components.length > 0 && components.map((component, index) => (
+            <KSection>
+                <KTitle text={`Components ${component.id}`}/>
+                <KButton as="a" to={`/cookbook/${component.id}`}>
+                    View details
+                </KButton>
+            </KSection>
+    ))}
+
+</CookbookLayout>

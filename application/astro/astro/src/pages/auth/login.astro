@@ -1,9 +1,10 @@
 ---
-import KForm from "../../components/forms/KForm.astro";
+import AuthLayout from "@/layouts/AuthLayout.astro";
+
 import LoginForm from "@/components/authentication/LoginForm.astro";
+import AuthenticationHero from "@/components/authentication/AuthenticationHero.astro"
+
+
 ---
 
-
-<KForm identifier="login" action="/api/auth/login">
-    <LoginForm />
-</KForm>
+<AuthLayout Cta={LoginForm} Hero={AuthenticationHero} />

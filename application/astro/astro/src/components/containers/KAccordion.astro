@@ -1,0 +1,22 @@
+---
+/**
+    Renders an accordion. The component accepts a summaryTitle string or a slot with name `summary`
+    
+    */
+interface Props {
+    summaryTitle?: string,
+    summaryDescription?: string,
+}
+const {summaryTitle, summaryDescription} = Astro.props;
+---
+<details>
+    {summaryTitle ?
+            <summary>{summaryTitle}</summary> :
+            <slot name="summary"/>}
+    {summaryDescription ? (
+                    <p>
+                        {summaryDescription}
+                    </p>
+        ) :
+            <slot/>}
+</details>

@@ -1,6 +1,8 @@
 ---
 title: "KButton"
+slug: 'kbutton'
 author: "Luca Faccio<luca@sunnyday.software>"
+pubDate: "2024-12-04"
 layout: "component-collection"
 ---
 

@@ -1,0 +1,33 @@
+---
+import WebPageLayout from "./WebPageLayout.astro"
+---
+<WebPageLayout>
+    <header>
+        <h2>KITme.App DOCS</h2>
+    </header>
+    <aside>
+        <h4>Developer Docs</h4>
+        <ul>
+            <slot name="dev-navs"/>
+        </ul>
+        <ul>
+            <slot name="auth-navs">
+            
+            </slot>
+        </ul>
+    </aside>
+    <main>
+        <div class="container">
+            <slot />
+        </div>
+    </main>
+</WebPageLayout>
+
+<style>
+    body {
+        display: grid;
+        grid-template-areas: "header header" "aside container";
+        grid-template-columns: minmax(64px, 420px) minmax(1fr, auto);
+        grid-template-rows: minmax(64px, 96px) minmax(1fr, auto);
+    }
+</style>

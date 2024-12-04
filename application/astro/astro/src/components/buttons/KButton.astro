@@ -1,26 +1,37 @@
 ---
+interface IButtonVariant {
+    name: string,
+    classes: string,
+}
+
+export const buttonVariants: IButtonVariant[] = [
+    {name: 'default', classes: "px-3 py-1.5"},
+    {name: 'primary', classes: "px-3 py-1.5 bg-onyx-500 "},
+]
+
 interface Props {
-	as: 'a' | 'button';
+    as: 'a' | 'button';
+    to?: string;
     label?: string;
     action?: (event: MouseEvent) => void | Promise<void>;
+    variant?: IButtonVariant;
 }
-const {as: Element, label} = Astro.props;
+const {as: Element, label, variant, to, action} = Astro.props;
 
 
 /** Validate Props
  * If as is set to `button` an `action` is mandatory.
  * If `as` is set to `a` the `to` attrs must be set.
-*/
-if (as === 'button' && !action) {
+ */
+if (Element === 'button' && !action) {
     throw new Error("Prop 'action' is required when 'as' is set to 'button'");
 }
-if (as === 'a' && !to) {
+if (Element === 'a' && !to) {
     throw new Error("Prop 'to' is required when 'as' is set to 'a'");
 }
 
-
 ---
 
-<Element>
-    {label ? <span>{label}</span> : <slot />}
+<Element class={variant?.classes} href={to} action={action}>
+    {label ? <span>{label}</span> : <slot/>}
 </Element>

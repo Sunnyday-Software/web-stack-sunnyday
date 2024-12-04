@@ -9,7 +9,7 @@ interface Props extends WebPageLayoutProps {
 }
 const props = Astro.props;
 ---
-<BaseLayout>
+<WebPageLayout>
     <!-- Header containing Logo, MobileNavigationTrigger and WebsiteNavigation -->
     <header>
         <!-- Logo Section -->
@@ -33,4 +33,10 @@ const props = Astro.props;
     <aside id="mobile-nav" class="hidden">
     
     </aside>
-</BaseLayout>
+</WebPageLayout>
+
+<style>
+    body {
+        @apply bg-amber-50;
+    }
+</style>

@@ -1,0 +1,26 @@
+---
+
+import { getCollection, render } from 'astro:content';
+import LandingPageLayout from '@/layouts/LandingPageLayout.astro';
+
+const components = await getCollection('components');
+export async function getStaticPaths() {
+    console.log('cookbook/components', components);
+    console.table(components);
+    return components.map(component => ({
+        params: { slug: component.slug },
+        component: component
+    }));
+}
+
+const { slug } = Astro.props;
+const page = components.find((item) => item.slug === slug);
+console.log('[...slug]',page)
+if (!page) return Astro.redirect("/404", 404);
+
+const { Content } = await render(page);
+---
+<LandingPageLayout mainNavigation={{ identifier: "documentation-navigation", items: []}}>
+    {page.data.title}
+    <Content />
+</LandingPageLayout>

@@ -1,11 +1,13 @@
 ---
 import type {HTMLAttributes} from 'astro/types';
-import {ActionError} from "astro:actions";
+
+type TextFieldState  = "enabled" | "disabled" | "validated" | "withErrors" ;
+
 interface Props extends HTMLAttributes<"div"> {
     id: string,
     fieldLabel: string,
     inputAttributes: HTMLAttributes<"input">,
-    state?: "enabled" | "disabled" | "valid" | "invalid",
+    state?: TextFieldState,
     supportingLabel?: string,
     placeholderLabel?: string,
     errorText?: string[],
@@ -18,11 +20,11 @@ const props = Astro.props;
 <div id={props.id + '-group'} class="field-group">
     <label class="label" for={props.id + '-input'}>{props.fieldLabel}</label>
     <input id={props.id + '-input'} class="input" {...props.inputAttributes} placeholder={props.placeholderLabel ?? undefined}
-           disabled={props.state === 'disabled'}/>
+           disabled={props.state === "disabled"}/>
     {props.supportingLabel && (
             <p class="supporting-label">{props.supportingLabel}</p>
     )}
-    {props.state === 'invalid' && props.errorText && props.errorText.map((e) =>
+    {props.state === 'withErrors' && props.errorText && props.errorText.map((e) =>
             <p class="error" aria-live="polite">
                 <span>{e}</span>
             </p>

@@ -2,18 +2,16 @@
 import KForm from "@/components/forms/KForm.astro";
 import KTextField from "@/components/forms/KTextField.astro";
 import KCard from "../containers/KCard.astro";
-import KCheckbox from "@/components/forms/KCheckbox.astro";
 import {actions, isInputError} from "astro:actions";
 
-const result = Astro.getActionResult(actions.authentication.registration);
+const result = await Astro.getActionResult(actions.authentication.loginWithCredentials);
 
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 console.log({inputErrors})
 ---
 
-<KForm identifier="login" action={actions.authentication.loginWithCredentials} titleLabel="Accedi"
+<KForm identifier="login" action={actions.authentication.loginWithCredentials}
        class="single-form-column"
-       subtitleLabel="Inserisci email e password usati in fase di registrazione."
 >
     <KCard slotPadding="2px 8px 8px 8px">
         <Fragment slot="header">
@@ -21,9 +19,19 @@ console.log({inputErrors})
             <p class="form-intro">
                 Utilizza la form sottostante per iscriverti alla nostra app e iniziare a pubblicizzare i tuoi servizi.
             </p>
+            {result?.error && (
+                <p>An error occurred:</p>
+                <pre>
+                    Code: {result.error.code}
+                    Message: {result.error.message}
+                </pre>
+            )}
         </Fragment>
-        <KTextField id="email" fieldLabel="E-mail" inputAttributes={{name: 'email', type: 'email'}} errorText={inputErrors && inputErrors["email"]} />
-        <KTextField id="password" fieldLabel="Password" inputAttributes={{name: 'password', type: 'password'}} errorText={inputErrors && inputErrors["password"]} />
+        <KTextField id="email" fieldLabel="E-mail" inputAttributes={{name: 'email', type: 'email'}}
+                    state={(inputErrors && inputErrors["email"]) ? "withErrors" : "enabled"} errorText={inputErrors && inputErrors["email"]}/>
+        <KTextField id="password" fieldLabel="Password" inputAttributes={{name: 'password', type: 'password'}}
+                    state={(inputErrors && inputErrors["email"]) ? "withErrors" : "enabled"}
+                    errorText={inputErrors && inputErrors["password"]}/>
         <Fragment slot="footer">
             <button type="submit" class="btn primary">
                 Accedi

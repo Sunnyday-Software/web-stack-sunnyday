@@ -1,23 +1,36 @@
 ---
+import WebPageLayout from './WebPageLayout.astro';
+
 interface Props {
     Hero: any
     Cta: any
 }
 const {Hero, Cta} =Astro.props;
 ---
-<main class="auth-layout">
-    <section class="hero-layout">
-        <Hero />
-    </section>
-    <section class="cta-layout">
-        <Cta />
-    </section>
-</main>
+<WebPageLayout seo={{ metaTitle: "KITme | Authentication"}}>
+    <main>
+        <section class="hero-layout">
+            <Hero />
+        </section>
+        <section class="cta-layout">
+            <Cta />
+        </section>
+    </main>
+</WebPageLayout>
 
 <style>
-    .auth-layout {
+    main {
+        @apply min-h-svh;
+        @apply grid grid-cols-2;
+        
+        .hero-layout {
+            @apply absolute z-0 inset-0;
+            filter: grayscale(80%);
+        }
+        
         .cta-layout {
-            @apply absolute top-10 right-10;
+            @apply absolute top-20 right-1/4;
+            @apply z-10;
         }
     }
 </style>

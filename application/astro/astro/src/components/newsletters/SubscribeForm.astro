@@ -15,7 +15,7 @@ if (inputErrors.email) {
     return Astro.redirect(`/newsletters/registration-success`);
 }*/
 ---
-<KForm action={'/newsletters/registration-success' + actions.newsletter.subscribeToNewsletter}
+<KForm action={actions.newsletter.subscribeToNewsletter}
        identifier="comingsoon-newsletters-subscribe"
        class="single-column-form">
     <KCard>
